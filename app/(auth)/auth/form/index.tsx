@@ -1,3 +1,15 @@
+"use client";
+
+import * as z from "zod";
+import AlertSuccess from "@/components/wrappers/alerts/success";
+import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { FaExclamation, FaMagic } from "react-icons/fa";
+import { useState } from "react";
+import schema from "@/schema/magicLink";
 import {
   FormControl,
   FormField,
@@ -5,20 +17,7 @@ import {
   Form,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import errors from "@/consts/errors";
-import { FaExclamation, FaMagic } from "react-icons/fa";
-import AlertSuccess from "@/components/wrappers/alerts/success";
-import { useState } from "react";
-
-const schema = z.object({
-  email: z.string().email({ message: errors.auth.email.default }),
-});
+import { signIn } from "next-auth/react";
 
 function AuthForm() {
   const [isSent, setIsSent] = useState(false);
@@ -30,9 +29,19 @@ function AuthForm() {
     },
   });
 
-  const handleSubmit = (data: any) => {
-    console.log(data);
-    setIsSent(true);
+  const handleSubmit = async (data: z.infer<typeof schema>) => {
+    //TODO: https://github.com/nextauthjs/next-auth/issues/9309
+    try {
+      const result = signIn("email", {
+        email: data.email,
+        redirect: false,
+      });
+
+      setIsSent(true);
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (isSent) {
