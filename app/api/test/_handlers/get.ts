@@ -8,7 +8,9 @@ export function setupDynamoDb() {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
     },
-    endpoint: "http://ddb-local:8000",
+    ...(process.env.NODE_ENV === "development" && {
+      endpoint: "http://ddb-local:8000",
+    }),
   };
 
   const client = DynamoDBDocument.from(new DynamoDB(config), {
