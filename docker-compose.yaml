@@ -1,0 +1,45 @@
+services:
+  ddb-local:
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: "ddb-local"
+    ports:
+      - 8000:8000
+    volumes:
+      - "./aws_dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+    networks:
+      - testnet
+
+  app:
+    depends_on:
+      - ddb-local
+    image: sass-blueprint
+    container_name: sass-blueprint
+    build: .
+    ports:
+      - 3000:3000
+    environment:
+      AWS_ACCESS_KEY_ID: "fakeMyKeyId"
+      AWS_SECRET_ACCESS_KEY: "fakeSecretAccessKey"
+
+    env_file:
+      - .env
+    volumes:
+      - ./public:/app/public
+      - ./app:/app/app
+      - ./components:/app/components
+      - ./config:/app/config
+      - ./consts:/app/consts
+      - ./lib:/app/lib
+      - ./schema:/app/schema
+      - ./types:/app/types
+      - ./auth.ts:/app/auth.ts
+      - ./components.json:/app/components.json
+      - ./middleware.ts:/app/middleware.ts
+    networks:
+      - testnet
+
+networks:
+  testnet:
+    driver: bridge

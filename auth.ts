@@ -10,7 +10,7 @@
 import NextAuth from "next-auth";
 import config from "@/config/auth";
 import EmailProvider from "next-auth/providers/email";
-console.log(process.env);
+
 export const {
   handlers: { GET, POST },
   auth,

@@ -18,6 +18,7 @@ const dynamoDbConfig: DynamoDBClientConfig = {
     accessKeyId: process.env.AWS_DYNAMODB_KEY as string,
     secretAccessKey: process.env.AWS_DYNAMODB_SECRET as string,
   },
+  endpoint: "http://ddb-local:8000",
 };
 
 const client = DynamoDBDocument.from(new DynamoDB(dynamoDbConfig), {

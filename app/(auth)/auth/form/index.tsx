@@ -31,6 +31,10 @@ function AuthForm() {
 
   const handleSubmit = async (data: z.infer<typeof schema>) => {
     //TODO: https://github.com/nextauthjs/next-auth/issues/9309
+    //TODO: https://github.com/nextauthjs/next-auth/issues/9279
+    // 15th Jan 2024
+    // These issues have not yet been fixed for email signin
+    // Looking for a a workaround
     try {
       const result = signIn("email", {
         email: data.email,
@@ -38,7 +42,6 @@ function AuthForm() {
       });
 
       setIsSent(true);
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
