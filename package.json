@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dockerup": "docker compose up",
+    "dockerup-f": "docker compose up --build --force-recreate",
+    "dockerdown": "docker compose down",
+    "dockerstop": "docker compose stop"
   },
   "dependencies": {
     "@auth/core": "^0.20.0",
@@ -15,6 +19,8 @@
     "@aws-sdk/lib-dynamodb": "^3.490.0",
     "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-menubar": "^1.0.4",
+    "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

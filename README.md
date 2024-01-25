@@ -2,6 +2,12 @@
 
 - Paaswordless authentication
 
+### Developement
+
+```bash
+docker compose up
+```
+
 ### Built with
 
 - TypeScript

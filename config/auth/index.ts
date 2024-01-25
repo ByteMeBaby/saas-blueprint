@@ -12,12 +12,11 @@ import { DynamoDBDocument } from "@aws-sdk/lib-dynamodb";
 import { DynamoDBAdapter } from "@auth/dynamodb-adapter";
 import { NextAuthConfig } from "next-auth";
 
-console.log(process.env.NODE_ENV);
 const dynamoDbConfig: DynamoDBClientConfig = {
-  region: process.env.AWS_DYNAMODB_REGION as string,
+  region: process.env.AWS_REGION as string,
   credentials: {
-    accessKeyId: process.env.AWS_DYNAMODB_KEY as string,
-    secretAccessKey: process.env.AWS_DYNAMODB_SECRET as string,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
   },
   ...(process.env.NODE_ENV === "development" && {
     endpoint: "http://ddb-local:8000",

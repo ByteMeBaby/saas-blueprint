@@ -19,10 +19,6 @@ services:
     build: .
     ports:
       - 3000:3000
-    environment:
-      AWS_ACCESS_KEY_ID: "fakeMyKeyId"
-      AWS_SECRET_ACCESS_KEY: "fakeSecretAccessKey"
-
     env_file:
       - .env
     volumes:
