@@ -9,7 +9,7 @@ export default function LayoutI({ children }: { children: React.ReactNode }) {
         <SideBar />
       </div>
 
-      <div className="fixed flex w-full justify-between bg-white py-4 px-3">
+      <div className="fixed flex w-full justify-between bg-white shadow-sm py-4 px-3">
         <Logo />
         <TopNavigation />
       </div>
