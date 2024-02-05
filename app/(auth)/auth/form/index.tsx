@@ -17,7 +17,15 @@ import {
   Form,
   FormMessage,
 } from "@/components/ui/form";
-import { signIn } from "next-auth/react";
+
+import { redirect } from "next/navigation";
+
+import {
+  MagicLinkErrorCode,
+  isMagicLinkError,
+  useClerk,
+  useSignUp,
+} from "@clerk/nextjs";
 
 function AuthForm() {
   const [isSent, setIsSent] = useState(false);
@@ -29,19 +37,40 @@ function AuthForm() {
     },
   });
 
+  const { signUp, isLoaded, setActive } = useSignUp();
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  const { startMagicLinkFlow, cancelMagicLinkFlow } =
+    signUp.createMagicLinkFlow();
+
   const handleSubmit = async (data: z.infer<typeof schema>) => {
-    //TODO: https://github.com/nextauthjs/next-auth/issues/9309
-    //TODO: https://github.com/nextauthjs/next-auth/issues/9279
-    // 15th Jan 2024
-    // These issues have not yet been fixed for email signin
-    // Looking for a a workaround
+    console.log(data);
     try {
-      const result = signIn("email", {
-        email: data.email,
-        redirect: false,
+      const x = await signUp.create({ emailAddress: data.email });
+      console.log(x);
+
+      const su = await startMagicLinkFlow({
+        redirectUrl: "http://localhost:3000/auth",
       });
 
-      setIsSent(true);
+      console.log(su, "sju");
+
+      // Check the verification result.
+      const verification = su.verifications.emailAddress;
+
+      console.log(verification, "verification");
+      if (su.status === "complete") {
+        // Sign up is complete, we have a session.
+        // Navigate to the after sign up URL.
+        setActive({
+          session: su.createdSessionId,
+          beforeEmit: () => redirect("/dashboard"),
+        });
+        return;
+      }
     } catch (error) {
       console.error(error);
     }
@@ -64,6 +93,7 @@ function AuthForm() {
 
   return (
     <Form {...form}>
+      works
       <form onSubmit={form.handleSubmit(handleSubmit)}>
         <FormField
           control={form.control}

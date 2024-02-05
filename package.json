@@ -17,6 +17,7 @@
     "@auth/dynamodb-adapter": "^1.0.14",
     "@aws-sdk/client-dynamodb": "^3.490.0",
     "@aws-sdk/lib-dynamodb": "^3.490.0",
+    "@clerk/nextjs": "^4.29.6",
     "@hookform/resolvers": "^3.3.4",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-menubar": "^1.0.4",
