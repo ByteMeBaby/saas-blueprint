@@ -1,5 +1,5 @@
 "use client";
-import { signOut, useSession } from "next-auth/react";
+
 import React from "react";
 import { FaPowerOff } from "react-icons/fa";
 import { cn } from "@/lib/utils";
@@ -15,9 +15,6 @@ import {
 import Image from "next/image";
 
 export function TopNavigation() {
-  const session = useSession();
-
-  const { displayName, email, image } = session?.data?.user || {};
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -28,22 +25,22 @@ export function TopNavigation() {
               <li className="row-span-3">
                 <div className="flex flex-col justify-between h-full rounded-md">
                   <div className="flex items-center">
-                    <Image
-                      width={36}
-                      height={36}
-                      src={
-                        (session?.data?.user?.image as string) ||
-                        "https://avatars.githubusercontent.com/u/65569978?v=4"
-                      }
-                      alt="User Image"
-                      className="rounded-full"
-                    />
+                    {/* <Image */}
+                    {/*   width={36} */}
+                    {/*   height={36} */}
+                    {/*   src={ */}
+                    {/*     (session?.data?.user?.image as string) || */}
+                    {/*     "https://avatars.githubusercontent.com/u/65569978?v=4" */}
+                    {/*   } */}
+                    {/*   alt="User Image" */}
+                    {/*   className="rounded-full" */}
+                    {/* /> */}
                     <div className="flex flex-col ml-2">
                       <div className="mb-0 leading-none">
-                        {displayName ? displayName : "Anonymous"}
+                        {/* {displayName ? displayName : "Anonymous"} */}
                       </div>
                       <div className="text-xs text-gray-500 leading-none">
-                        {email}
+                        {/* {email} */}
                       </div>
                     </div>
                   </div>
@@ -51,7 +48,7 @@ export function TopNavigation() {
                   <div className="ml-3 cursor-pointer">
                     <span
                       className="flex items-center w-full justify-end pb-3"
-                      onClick={() => signOut()}
+                      // onClick={() => signOut()}
                     >
                       <FaPowerOff />
                       &nbsp;Signout

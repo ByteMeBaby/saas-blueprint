@@ -29,7 +29,7 @@ import {
 
 function AuthForm() {
   const [isSent, setIsSent] = useState(false);
-  const [errors] = useState(false);
+  const [errors, setErrors] = useState<string[]>([]);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -53,10 +53,10 @@ function AuthForm() {
       console.log(x);
 
       const su = await startMagicLinkFlow({
-        redirectUrl: "http://localhost:3000/auth",
+        redirectUrl: process.env.NEXT_PUBLIC_MAGIC_LINK_REDIRECT_URL as string,
       });
 
-      console.log(su, "sju");
+      console.log(su, "su");
 
       // Check the verification result.
       const verification = su.verifications.emailAddress;
@@ -71,8 +71,16 @@ function AuthForm() {
         });
         return;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      if (error?.errors) {
+        console.log(error.errors);
+        const messages = error.errors.map((error: any) => {
+          return error.message;
+        });
+
+        setErrors([...messages]);
+      }
     }
   };
 
@@ -80,39 +88,42 @@ function AuthForm() {
     return <AlertSuccess text="Check your email for a login link" />;
   }
 
-  if (errors) {
-    return (
-      <Alert variant="destructive" className="bg-red-50 border-0">
-        <FaExclamation className="w-4 h-4" />
-        <AlertDescription className="font-bold">
-          Something went wrong
-        </AlertDescription>
-      </Alert>
-    );
-  }
-
   return (
-    <Form {...form}>
-      works
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input {...field} placeholder="Email" type="email" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button size="lg" className="mt-3 w-full">
-          Send a login link
-          <FaMagic className="ml-2" />
-        </Button>
-      </form>
-    </Form>
+    <>
+      {errors?.length > 0 && (
+        <Alert variant="destructive" className="bg-red-50 border-0 mb-3">
+          <FaExclamation className="w-4 h-4" />
+          <AlertDescription className="font-bold">
+            <ul>
+              {errors.map((error, index) => {
+                return <li key={index}>{error}</li>;
+              })}
+            </ul>
+          </AlertDescription>
+        </Alert>
+      )}
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input {...field} placeholder="Email" type="email" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button size="lg" className="mt-3 w-full">
+            Send a login link
+            <FaMagic className="ml-2" />
+          </Button>
+        </form>
+      </Form>
+    </>
   );
 }
 
