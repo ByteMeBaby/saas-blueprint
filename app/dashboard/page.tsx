@@ -1,3 +1,7 @@
 export default function DashboardPage(props: { children: React.ReactNode }) {
-  return <>{props.children}</>;
+  return (
+    <div className=" h-full w-full flex justify-center items-center">
+      {props.children}
+    </div>
+  );
 }
