@@ -1,6 +1,6 @@
 ### Features
 
-- Paaswordless authentication
+- Paaswordless authentication using Clerk
 
 ### Developement
 
@@ -27,11 +27,12 @@ docker compose up --build # force rebuild and up
 ### Built with
 
 - TypeScript
-- AuthJS (AKA NextAuth)
 - NextJS
+- Clerk
 - shadcn/ui
 - TailwindCSS
 - zod
 - React Hook Form
 - Docker
+- Convex
 - AWS DynamoDB

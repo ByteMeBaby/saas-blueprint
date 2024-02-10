@@ -1,6 +1,4 @@
-import Logo from "./_common/logo";
-import SideBar from "./_common/sidebar";
-import TopNavigation from "./_common/topNavigation";
+import SideBar from "../_common/sidebar";
 
 export default function LayoutI({ children }: { children: React.ReactNode }) {
   return (
@@ -9,12 +7,7 @@ export default function LayoutI({ children }: { children: React.ReactNode }) {
         <SideBar />
       </div>
 
-      <div className="fixed flex w-full justify-between bg-white shadow-sm py-4 px-3">
-        <Logo />
-        <TopNavigation />
-      </div>
-
-      <main>{children}</main>
+      <main className="w-full h-full">{children}</main>
     </div>
   );
 }
