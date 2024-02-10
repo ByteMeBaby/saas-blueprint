@@ -6,6 +6,8 @@
 
 You can use any package manager you want. Make sure to install the dependencies first using your package manager. I use pnpm.
 
+Note: I switched from DynamoDB to Convex. I used Docker because I needed to run DynamoDB locally. If I do not find any use case, I will be removing the docker-compose file and the Dockerfile soon.
+
 ```bash
 # If you want to use docker
 pnpm dockerup-f # rebuild, force recreate and up
