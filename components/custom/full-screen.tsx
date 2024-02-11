@@ -30,7 +30,7 @@ export default function FullScreen({
         fullScreen({
           orientation,
         }),
-        className,
+        className
       )}
     >
       {children}
