@@ -7,7 +7,7 @@ import { PlusCircle } from "lucide-react";
 
 export default function TopNavigation() {
   return (
-    <nav className="p-3 flex justify-between items-center bg-white">
+    <nav className="p-3 flex justify-between items-center">
       <div>
         <div className="w-40 h-10 bg-gray-200" />
       </div>
@@ -19,7 +19,7 @@ export default function TopNavigation() {
         <UserButton
           afterSignOutUrl="/sign-in"
           userProfileUrl="/dashboard/user-profile"
-          userProfileMode="modal"
+          userProfileMode="navigation"
         />
       </div>
     </nav>
