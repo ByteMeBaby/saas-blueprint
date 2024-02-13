@@ -4,9 +4,9 @@ import { UserButton } from "@clerk/nextjs";
 
 export default function SideBar() {
   return (
-    <aside className="flex lg:flex-col w-full">
+    <aside className="flex flex-col w-full min-w-[300px]">
       <div className="flex w-full items-center justify-center mb-3 p-3">
-        <Logo />{" "}
+        <Logo />
         <p className="text-gray-600 text-2xl font-medium">SaaS Blueprint</p>
       </div>
       <nav className="flex-grow">

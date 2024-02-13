@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="w-full h-full bg-[#f4f4f4] flex">
       <div
-        className="bg-white flex left-0 top-0 h-full relative w-80 items-stretch"
+        className="bg-white flex left-0 top-0 h-full relative w-80 items-stretch overflow-auto"
         style={{ width: `${width}px` }}
       >
         <div
