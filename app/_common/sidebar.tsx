@@ -1,6 +1,3 @@
-"use client";
-import { UserButton } from "@clerk/nextjs";
-
 export default function SideBar() {
   return (
     <aside className="flex flex-col h-full text-nowrap">
@@ -12,13 +9,7 @@ export default function SideBar() {
           <span className="px-3 py-1 text-sm mt-4">Secondary section</span>
         </div>
       </nav>
-      <footer className="p-3">
-        <UserButton
-          afterSignOutUrl="/sign-in"
-          userProfileUrl="/dashboard/user-profile"
-          userProfileMode="modal"
-        />
-      </footer>
+      <footer className="p-3"></footer>
     </aside>
   );
 }
